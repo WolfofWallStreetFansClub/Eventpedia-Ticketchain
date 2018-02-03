@@ -1,0 +1,29 @@
+<div class="page-container">
+  <div class="content">
+    <h3>Join Our Network</h3>
+    Name: <input type="text" id="userName">
+    <input type="submit" value="Submit" onclick="App.createUser()"><br>
+    <label id="regRes"><i></i></label>
+    <hr>
+    <h3>Check User stat</h3>
+    Address: <input type="text" id="userAddr">
+    <input type="submit" value="Check" onclick="App.retrieveUserInfo()"><br>
+    <label id="userInfo"><i></i></label>
+    <hr>
+    <h3>Top up you balance</h3>
+    Amount: <input type="number", id="topUpNum">
+    <input type="submit" value="Submit" onclick="App.topUpAccount()"><br>
+    <label id="topUpRes"><i></i></label>
+    <hr>
+    <h3>Create Your Event</h3>
+    Event Name: <input type="text" id="eventName"><br>
+    Event Description: <input type="text" id="eventDes"><br>
+    Event Location: <input type="text" id="eventAddr"><br>
+    Paticipation Fee: <input type="number" id="eventPrice"><br>
+    Event Date: <input type="datetime-local" id="eventDate"><br>
+    Registration Start: <input type="datetime-local" id="registerStart"><br>
+    Registration Ends: <input type="datetime-local" id="registerEnd"><br>
+    <input type="submit" value="Create" onclick="App.createEvent()"><br>
+    <label id="eventCreate"><i></i></label>
+  </div>
+</div>
