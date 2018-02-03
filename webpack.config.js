@@ -1,37 +1,55 @@
-const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  context: path.resolve(__dirname, 'app'),
-  entry: './javascripts/app.js',
+  context: __dirname + '/app',
+  entry: {
+    build: './app.js'
+  },
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'app.js'
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist')
   },
   plugins: [
-    // Copy our app's index.html to the build folder.
     new CopyWebpackPlugin([
-      { from: './index.html', to: "index.html" }
-    ])
+      { from: 'static/index.html', to: 'index.html' }
+    ]),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default']
+    }),
   ],
   module: {
     rules: [
       {
-       test: /\.css$/,
-       use: [ 'style-loader', 'css-loader' ]
-      }
-    ],
-    loaders: [
-      { test: /\.json$/, use: 'json-loader' },
+        test: /\.(scss)$/,
+        use: [
+          {
+            loader: 'style-loader', // inject CSS to page
+          }, {
+            loader: 'css-loader', // translates CSS into CommonJS modules
+          }, {
+            loader: 'postcss-loader', // Run post css actions
+            options: {
+              plugins: function () { // post css plugins, can be exported to postcss.config.js
+                return [
+                  require('precss'),
+                  require('autoprefixer')
+                ];
+              }
+            }
+          }, {
+            loader: 'sass-loader' // compiles SASS to CSS
+          }
+        ]
+      },
       {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015'],
-          plugins: ['transform-runtime']
-        }
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
       }
     ]
   }
-}
+};
