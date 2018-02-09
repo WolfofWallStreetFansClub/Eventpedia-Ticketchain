@@ -1,8 +1,6 @@
 pragma solidity ^0.4.2;
 
 contract Eventpedia {
-
-    string public eventHash;
     address public founder;
     mapping (string => Event) events;
     mapping (address => Person) users;
@@ -24,16 +22,13 @@ contract Eventpedia {
     }
 
     function Eventpedia () {
-        eventHash = "0";
         founder = msg.sender;
     }
 
-    function createEvent(string _eventHash,
-                         address _hostName,
+    function createEvent(address _hostName,
                          uint _eventPrice,
                          uint _eventDate,
                          string _eventID) {
-                            eventHash = _eventHash;
                             events[_eventID] = Event(_hostName, _eventPrice, _eventDate, 0, true);
                          }
 
@@ -42,7 +37,7 @@ contract Eventpedia {
         users[msg.sender] = Person(_name, 0, 0, true);
     }
 
-    function retrieveUserInfo() returns (string _name, int _credit, uint _balance) {
+    function retrieveUserInfo() constant returns (string _name, int _credit, uint _balance) {
         require(users[msg.sender].exist);
         Person storage curPerson = users[msg.sender];
         _name = curPerson.name;
@@ -55,16 +50,12 @@ contract Eventpedia {
         msg.sender.transfer(_amount);
     }
 
-    function showBalance(address _user) returns (uint) {
+    function showBalance(address _user) constant returns (uint) {
         return users[_user].balance;
     }
 
     function topUp() payable {
         users[msg.sender].balance += msg.value;
-    }
-
-    function getEventHash() constant returns (string) {
-        return eventHash;
     }
 
     function isEnrolled(string _stat) constant returns (bool) {
@@ -83,5 +74,4 @@ contract Eventpedia {
         registration[msg.sender][_eventID] = true;
         ++events[_eventID].participants;
     }
-
 }
