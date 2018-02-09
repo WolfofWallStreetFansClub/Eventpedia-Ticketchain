@@ -1,11 +1,19 @@
 import React from 'react';
 import styles from './Header.scss';
+import Wallet from '../Wallet';
 
-const Header = () => {
-    return (
-        <div className={styles.header} >
-        </div>
-        );
-};
+class Header extends React.Component {
+    constructor() {
+        super()
+        this.wallet = new Wallet();
+    }
+    render() {
+        return (
+            <div className={styles.header} >
+                <h1>EventPedia</h1>
+            </div>
+            );
+    }
+}
 
 export default Header;
