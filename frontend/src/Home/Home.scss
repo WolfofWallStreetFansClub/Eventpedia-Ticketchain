@@ -1,0 +1,20 @@
+.search {
+    width: 500px;
+    height: 50px;
+    margin-top: 20px;
+}
+.background {
+    background-color: black;
+    text-align: center;
+    vertical-align: middle;
+    position: absolute;
+}
+.home {
+    background-color: black;
+    height: 170vh;
+    :global {
+        .ant-layout-content {
+            background-color: black;
+        }
+    }
+}

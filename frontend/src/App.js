@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Layout } from 'antd';
+import Header from './Header';
+import Main from './Main';
+import styles from './App.scss';
 
-class App extends Component {
-  render() {
+const App = () => {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+      <div className={styles.app}>
+        <Layout>
+            <Layout.Header>
+                <Header />
+            </Layout.Header>
+            <Layout.Content>
+                <Main />
+            </Layout.Content>
+        </Layout>
+      </div>);
+};
 
 export default App;
