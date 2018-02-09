@@ -2,7 +2,6 @@ var MetamaskSigner = require('./MetamaskSigner.js');
 var EventpediaContract = require('./EventpediaContract');
 var Promise = require('bluebird');
 var {providers} = require('ethers');
-var web3 = require('web3');
 // Use Web3 to handle account selection & transactions.
 class Wallet {
   constructor() {

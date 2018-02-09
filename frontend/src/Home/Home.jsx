@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Row, Col } from 'antd';
-import styles from './Home.scss';
 import background from '../assets/img/background.gif';
 import SearchApi from './SearchApi';
 import axios from 'axios';
