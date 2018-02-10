@@ -5,10 +5,10 @@ var {providers} = require('ethers');
 // Use Web3 to handle account selection & transactions.
 class Wallet {
   constructor() {
+    let web3 = window.web3;
     if (typeof web3 !== 'undefined' && typeof web3.currentProvider !== 'undefined') {
       this.provider = web3.currentProvider;
-    }
-    else {
+    } else {
       throw new Error('No web3 or web3.currentProvider found. Do you have Metamask?');
     }
     this.init();
@@ -22,9 +22,7 @@ class Wallet {
   
   async checkEthAccount () {
     this.networkID = await this.getNetWorkID();
-  
-    if (this.networkID != '3') throw new Error('Wrong network! Switch to Ropsten.');
-    // Get current account
+    if (this.networkID.result != '3') throw new Error('Wrong network! Switch to Ropsten.');
     return this.provider.sendAsync({
       method: 'eth_accounts',
       params: []
@@ -39,12 +37,13 @@ class Wallet {
       params: []
     });
   }
+
   async login () {
     let res = await this.checkEthAccount();
+    let web3 = window.web3;
     return new Promise((resolve, reject) =>{
       var address = res.result[0];
       if (!address) throw new Error('MetaMask is locked! Please open MetaMask to unlock it.');
-      alert("metamask connection succeeds, your address is: "+address);
       var wallet = new MetamaskSigner(web3)
       wallet.provider = providers.getDefaultProvider('ropsten');
       var activeWallet = wallet;
