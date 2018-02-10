@@ -37,7 +37,17 @@ class Profile extends React.Component {
     return(
       <div className="page-container">
         <div className="content">
-        <h1>XIAOAGE</h1>
+          <div className="info">
+            <h1>XIAOAGE</h1>
+            <div className="account-info">
+                <div className="">
+                  Address: {this.state.activeWallet.address}
+                  </div>
+                <div className="">
+                  Balance: {}
+                </div>
+            </div>
+          </div>
         <hr/>
         
         <div className="row">
