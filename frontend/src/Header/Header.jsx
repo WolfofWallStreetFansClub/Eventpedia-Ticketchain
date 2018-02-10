@@ -1,18 +1,19 @@
 import React from 'react';
 import styles from './Header.scss';
-import Wallet from '../Wallet';
+import ContractUtils from '../Utils';
 
 class Header extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            wallet: new Wallet()
+            contractUtils: new ContractUtils()
         }
     }
 
     handleClick(e) {
-        console.log(this.state.wallet.activeContract);
-        this.state.wallet.activeContract.showBalance(this.state.wallet.activeWallet.address).then((val)=> console.log(val));
+        this.state.contractUtils.retrieveUserInfo().then((name, credit, balance) => {
+            console.log(name+" "+balance+" "+credit);
+        })
     }
 
     render() {

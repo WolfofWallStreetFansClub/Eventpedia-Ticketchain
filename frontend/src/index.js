@@ -1,18 +1,15 @@
+import { AppContainer, hot } from 'react-hot-loader';
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
-import { AppContainer } from 'react-hot-loader';
-import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
 const rootElement = document.getElementById('root');
 const appRender = (AppToRender) => {
     render(<AppContainer>
-                <Provider>
-                    <BrowserRouter>
-                        <AppToRender />
-                    </BrowserRouter>
-                </Provider>
+            <BrowserRouter>
+                <AppToRender />
+            </BrowserRouter>
            </AppContainer>, rootElement);
 };
 appRender(App);
@@ -23,3 +20,4 @@ if (module.hot) {
         appRender(NextApp);
     });
 }
+
