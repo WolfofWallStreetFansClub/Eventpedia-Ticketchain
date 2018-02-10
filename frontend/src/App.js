@@ -4,15 +4,11 @@ import Home from './Home';
 import Profile from './Profile';
 import Discover from './Discover';
 import Footer from './Footer';
-import ContractUtils from './Utils';
 import { Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      contractUtils: new ContractUtils()
-    }
   }
 
   render() {
@@ -23,7 +19,7 @@ class App extends React.Component {
         <Route exact path='/' component={Home}/>
         <Route exact path='/discover' component={Discover}/>
         <Route exact path='/profile' render={(routeProps) => (
-          <Profile {...routeProps}  contractUtils={this.state.contractUtils}/>
+          <Profile {...routeProps} />
           )}/>
       </Switch>
       <Footer />

@@ -1,14 +1,21 @@
 import React from 'react';
 import {avatar} from '../Utils';
 import './Profile.css';
+import contractUtils from '../Utils/ContractUtils';
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.contractUtils.wallet.activeContract);
+    this.contractUtils = new contractUtils();
+    this.state = { address: '' };
+  }
+
+  async getContractUtils() {
+    this.contractUtils.init().then((res) => this.setState({address: res.wallet.activeWallet.address}));
   }
 
   render() {
+    this.getContractUtils();
     return(
       <div className="page-container">
         <div className="content">
@@ -18,7 +25,7 @@ class Profile extends React.Component {
         <div className="row">
           <div className="col-sm-2">
             <div className="row">
-              Address: {this.props.contractUtils.wallet.activeWallet.address}
+              Address: {this.state.address}
             </div>
             <div className="row">
               Balance: {}

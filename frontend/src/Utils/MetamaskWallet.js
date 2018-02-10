@@ -11,7 +11,6 @@ class Wallet {
     } else {
       throw new Error('No web3 or web3.currentProvider found. Do you have Metamask?');
     }
-    this.init();
   }
 
   async init() {

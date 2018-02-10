@@ -5,6 +5,11 @@ class ContractUtils {
     this.wallet = new Wallet();
   }
 
+  async init () {
+    await this.wallet.init();
+    return this;
+  }
+
   createEvent(hostName, eventPrice, eventDate, eventID) {
     return this.wallet.activeContract.createEvent(
       hostName, 
