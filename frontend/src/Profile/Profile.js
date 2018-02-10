@@ -13,17 +13,21 @@ class Profile extends React.Component {
     };
   }
 
-  async getContractUtils() {
+  getContractUtils() {
     this.state.contractUtils.init().then((res) => {
       this.setState({
         activeWallet: res.wallet.activeWallet,
         contractUtils: res,
       })
       res.showBalance(res.wallet.activeWallet.address).then(val => {
-        console.log(val);
+        this.setState({
+            balance: val[0].toNumber()
+        });
       });
     });
   }
+
+  
 
   componentDidMount() {
     this.getContractUtils();
@@ -42,7 +46,7 @@ class Profile extends React.Component {
               Address: {this.state.activeWallet.address}
             </div>
             <div className="row">
-              Balance: {}
+              Balance: {this.state.balance}
             </div>
           </div>
           <div className="col-sm-10">

@@ -35,8 +35,8 @@ class ContractUtils {
     return this.wallet.activeContract.showBalance(user);
   }
 
-  topup() {
-    return this.wallet.activeContract.topUp();
+  topup(amount) {
+    return this.wallet.activeContract.topUp({value: amount});
   }
 
   isEnrolled(eventID) {
