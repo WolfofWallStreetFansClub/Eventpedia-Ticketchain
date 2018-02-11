@@ -5,7 +5,7 @@
 var {Contract, providers} = require('ethers');
 var eventpediaContractInfo = require('./config/Eventpedia.json');
 
-var address = '0x1e4e3039B8bEA2D6f4b06af8FF1724a6d76F434c';
+var address = '0xA4c5a61C2d4489e7B448d2f3d3B368B1EBE69792';
 
 var abi = eventpediaContractInfo.abi;
 

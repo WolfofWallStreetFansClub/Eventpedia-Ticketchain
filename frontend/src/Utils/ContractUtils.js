@@ -11,17 +11,8 @@ class ContractUtils {
     return this;
   }
 
-  createEvent(hostName, eventPrice, eventDate, eventID) {
-    return this.wallet.activeContract.createEvent(
-      hostName, 
-      eventPrice, 
-      eventDate, 
-      eventID
-    );
-  }
-
-  createUser(name) {
-    return this.wallet.activeContract.createUser(name);
+  createEvent(eventPrice, eventID) {
+    return this.wallet.activeContract.createEvent(eventPrice, eventID);
   }
 
   retrieveUserInfo() {
@@ -32,24 +23,24 @@ class ContractUtils {
     return this.wallet.activeContract.retrieveBalance(amount);
   }
 
-  showBalance(user) {
-    return this.wallet.activeContract.showBalance(user);
-  }
-
   topup(amount) {
     return this.wallet.activeContract.topUp({value: ethers.utils.parseEther(amount)});
+  }
+
+  changeName(name) {
+    return this.wallet.activeContract.changeName(name);
   }
 
   isEnrolled(eventID) {
     return this.wallet.activeContract.isEnrolled(eventID);
   }
 
-  viewEvent(eventID) {
-    return this.wallet.activeContract.viewEvent(eventID);
-  }
-
   joinEvent(eventID) {
     return this.wallet.activeContract.joinEvent(eventID);
+  }
+
+  payEvent(eventID) {
+    return this.wallet.activeContract.payEvent(eventID);
   }
 }
 

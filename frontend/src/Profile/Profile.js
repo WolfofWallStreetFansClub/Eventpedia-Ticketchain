@@ -4,6 +4,7 @@ import './Profile.css';
 import axios from 'axios';
 import ethers from 'ethers';
 import ContractUtils from '../Utils/ContractUtils';
+import Modal from '../Modal';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -11,12 +12,13 @@ class Profile extends React.Component {
     this.state = { 
       activeWallet: '',
       contractUtils: new ContractUtils(),
-      balance: 0
+      balance: 0,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.createEvent = this.createEvent.bind(this);
     this.topUp = this.topUp.bind(this);
+    this.changeName = this.changeName.bind(this);
   }
 
   getContractUtils() {
@@ -25,9 +27,11 @@ class Profile extends React.Component {
         activeWallet: res.wallet.activeWallet,
         contractUtils: res,
       })
-      res.showBalance(res.wallet.activeWallet.address).then(val => {
+      res.retrieveUserInfo().then(val => {
+        console.log(val);
         this.setState({
-            balance: ethers.utils.formatEther(val[0])
+            balance: ethers.utils.formatEther(val[1]),
+            username: val[0]
         });
       });
     });
@@ -49,6 +53,7 @@ class Profile extends React.Component {
   }
 
   createEvent(e) {
+    e.preventDefault();
     let eventName = this.state.eventName;
     let eventDescription = this.state.eventDescription;
     let eventLocation = this.state.eventLocation;
@@ -59,15 +64,59 @@ class Profile extends React.Component {
     let event = {
       eventName, eventDescription, eventLocation, eventDate, eventFee, eventStartDate, eventEndDate
     }
-    e.preventDefault();
+    this.state.contractUtils.createEvent(eventFee, "1").then(res => {
+      this.setState({
+        showModal: true,
+        success: true,
+        hash: res.hash,
+        show: true
+      });
+    }).catch(err => {
+      this.setState({
+        showModal: true,
+        success: false,
+        error: err,
+        show: true
+      });
+    })
   }
 
   topUp(e) {
     e.preventDefault();
-    console.log(this.state.amount);
     this.state.contractUtils.topup(this.state.amount).then((res) => {
-      console.log(res);
-    })
+      this.setState({
+        showModal: true,
+        success: true,
+        hash: res.hash,
+        show: true
+      });
+    }).catch(err => {
+      this.setState({
+        showModal: true,
+        success: false,
+        error: err,
+        show: true
+      });
+    });
+  }
+
+  changeName(e) {
+    e.preventDefault();
+    this.state.contractUtils.changeName(this.state.newname).then((res)=>{
+      this.setState({
+        showModal: true,
+        success: true,
+        hash: res.hash,
+        show: true
+      })
+    }).catch(err => {
+      this.setState({
+        showModal: true,
+        success: false,
+        error: err,
+        show: true
+      });
+    });
   }
 
   render() {
@@ -75,13 +124,13 @@ class Profile extends React.Component {
       <div className="page-container">
         <div className="content">
           <div className="info">
-            <h1>XIAOAGE</h1>
+            <h1>{this.state.username}</h1>
             <div className="account-info">
                 <div className="">
                   Address: {this.state.activeWallet.address}
                   </div>
                 <div className="">
-                  Balance: {this.state.balance}
+                  Balance: {ethers.utils.etherSymbol} {this.state.balance}
                 </div>
             </div>
           </div>
@@ -89,12 +138,12 @@ class Profile extends React.Component {
         
         <div className="row">
           <div className="col-sm-10">
-            <form>
+            <form onSubmit={this.createEvent}>
               <h2>Create Event</h2>
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Event Name: </label>
                 <div className="col-sm-8">
-                  <input type="text" className="form-control form-control-lg" name="eventName" id="colFormLabelLg" onChange={this.handleInputChange}/>
+                  <input type="text" className="form-control form-control-lg" name="eventName" id="colFormLabelLg" onChange={this.handleInputChange} />
                 </div>
               </div>
               <div className="form-group row">
@@ -106,7 +155,7 @@ class Profile extends React.Component {
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Event Location: </label>
                 <div className="col-sm-8">
-                  <input type="text" className="form-control form-control-lg" name="eventLocation" id="colFormLabelLg" onChange={this.handleInputChange}/>
+                  <input type="text" className="form-control form-control-lg" name="eventLocation" id="colFormLabelLg" onChange={this.handleInputChange} />
                 </div>
               </div>
               <div className="form-group row">
@@ -118,38 +167,48 @@ class Profile extends React.Component {
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Event Date: </label>
                 <div className="col-sm-8">
-                  <input type="datetime-local" className="form-control form-control-lg" name="eventDate" id="colFormLabelLg" onChange={this.handleInputChange}/>
+                  <input type="datetime-local" className="form-control form-control-lg" name="eventDate" id="colFormLabelLg" onChange={this.handleInputChange} />
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Registration Start: </label>
                 <div className="col-sm-8">
-                  <input type="datetime-local" className="form-control form-control-lg"  name="eventStartDate" id="colFormLabelLg" onChange={this.handleInputChange}/>
+                  <input type="datetime-local" className="form-control form-control-lg"  name="eventStartDate" id="colFormLabelLg" onChange={this.handleInputChange} />
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Registration Ends: </label>
                 <div className="col-sm-8">
-                  <input type="datetime-local" className="form-control form-control-lg" name="eventEndDate" id="colFormLabelLg" onChange={this.handleInputChange}/>
+                  <input type="datetime-local" className="form-control form-control-lg" name="eventEndDate" id="colFormLabelLg" onChange={this.handleInputChange} />
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary mb-2" onClick={this.createEvent}>Create</button>
+              <button type="submit" className="btn btn-primary mb-2">Create</button>
             </form>
             <hr />
-            <form>
+            <form onSubmit={this.topUp}>
               <h2>Settings</h2>
-              <div className="form-group row">
-              <label className="col-sm-2 col-form-label col-form-label-lg">Top up: </label>
-              <div className="col-sm-4">
-                <input type="number" className="form-control form-control-lg" id="colFormLabelLg" name="amount" onChange={this.handleInputChange}/>
+              <div className="form-group row" onSubmit={this.topUp}>
+                <label className="col-sm-2 col-form-label col-form-label-lg">Top up: </label>
+                <div className="col-sm-4">
+                  <input type="number" className="form-control form-control-lg" id="colFormLabelLg" name="amount" onChange={this.handleInputChange} required/>
+                </div>
+                <button type="submit" className="btn btn-primary mb-2">Send</button>
               </div>
-              <button type="submit" className="btn btn-primary mb-2" onClick={this.topUp}>Send</button>
+            </form>
+            <form onSubmit={this.changeName}>
+              <div className="form-group row">
+                <label className="col-sm-2 col-form-label col-form-label-lg">Change Name: </label>
+                <div className="col-sm-4">
+                  <input type="text" className="form-control form-control-lg" id="colFormLabelLg" name="newname" onChange={this.handleInputChange} required/>
+                </div>
+                <button type="submit" className="btn btn-primary mb-2">Change</button>
               </div>
             </form>
           </div>
-          </div>
         </div>
+        {this.state.show ? <Modal hash={this.state.hash} error={this.state.error} success={this.state.success}/> : null}
       </div>
+    </div>
     );
   }
 }

@@ -8,8 +8,7 @@ var deployTransaction = Contract.getDeployTransaction(
   eventpediaContractInfo.bytecode.object,
   eventpediaContractInfo.abi
 );
-deployTransaction.gasLimit = 4000000;
-deployTransaction.gasPrice = 50;
+deployTransaction.gasPrice = 500;
 
 var provider = getDefaultProvider('ropsten');
 

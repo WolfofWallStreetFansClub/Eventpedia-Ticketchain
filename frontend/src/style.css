@@ -153,7 +153,8 @@ hr.star-primary:after {
   
   .content {
     margin: 0 auto;
-    margin-top:70px;
+    margin-top:50px;
+    margin-bottom: 100px;
   }
   
   table {

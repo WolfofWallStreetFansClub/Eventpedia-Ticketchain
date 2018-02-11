@@ -28,7 +28,7 @@ class Footer extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-                &copy;
+                &copy; Eventpedia
             </div>
           </div>
         </div>
