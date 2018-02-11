@@ -1,4 +1,5 @@
 import Wallet from './MetamaskWallet';
+import ethers from 'ethers'
 
 class ContractUtils {
   constructor() {
@@ -36,7 +37,7 @@ class ContractUtils {
   }
 
   topup(amount) {
-    return this.wallet.activeContract.topUp({value: amount});
+    return this.wallet.activeContract.topUp({value: ethers.utils.parseEther(amount)});
   }
 
   isEnrolled(eventID) {

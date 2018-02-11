@@ -2,6 +2,7 @@ import React from 'react';
 import {avatar} from '../Utils';
 import './Profile.css';
 import axios from 'axios';
+import ethers from 'ethers';
 import ContractUtils from '../Utils/ContractUtils';
 
 class Profile extends React.Component {
@@ -15,6 +16,7 @@ class Profile extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.createEvent = this.createEvent.bind(this);
+    this.topUp = this.topUp.bind(this);
   }
 
   getContractUtils() {
@@ -25,7 +27,7 @@ class Profile extends React.Component {
       })
       res.showBalance(res.wallet.activeWallet.address).then(val => {
         this.setState({
-            balance: val[0].toNumber()
+            balance: ethers.utils.formatEther(val[0])
         });
       });
     });
@@ -35,6 +37,7 @@ class Profile extends React.Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
+    console.log({value, name});
     this.setState({
       [name]: value
     });
@@ -57,7 +60,14 @@ class Profile extends React.Component {
       eventName, eventDescription, eventLocation, eventDate, eventFee, eventStartDate, eventEndDate
     }
     e.preventDefault();
-    console.log(event);
+  }
+
+  topUp(e) {
+    e.preventDefault();
+    console.log(this.state.amount);
+    this.state.contractUtils.topup(this.state.amount).then((res) => {
+      console.log(res);
+    })
   }
 
   render() {
@@ -71,7 +81,7 @@ class Profile extends React.Component {
                   Address: {this.state.activeWallet.address}
                   </div>
                 <div className="">
-                  Balance: {}
+                  Balance: {this.state.balance}
                 </div>
             </div>
           </div>
@@ -131,9 +141,9 @@ class Profile extends React.Component {
               <div className="form-group row">
               <label className="col-sm-2 col-form-label col-form-label-lg">Top up: </label>
               <div className="col-sm-4">
-                <input type="text" className="form-control form-control-lg" id="colFormLabelLg" />
+                <input type="number" className="form-control form-control-lg" id="colFormLabelLg" name="amount" onChange={this.handleInputChange}/>
               </div>
-              <button type="submit" className="btn btn-primary mb-2">Send</button>
+              <button type="submit" className="btn btn-primary mb-2" onClick={this.topUp}>Send</button>
               </div>
             </form>
           </div>
