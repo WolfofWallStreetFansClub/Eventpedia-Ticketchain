@@ -1,12 +1,17 @@
 {
   "development": {
-    "use_env_variable": "138.197.144.198"
+    "username": "postgres",
+    "password": "1955",
+    "database": "eventsdb",
+    "host": "138.197.144.198",
+    "port": 5432,
+    "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
     "password": "1955",
     "database": "eventsdb",
-    "host": "127.0.0.1",
+    "host": "138.197.144.198",
     "port": 5432,
     "dialect": "postgres"
   }
