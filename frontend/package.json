@@ -26,11 +26,12 @@
     "react-scripts": "1.1.0",
     "redux": "^3.7.2",
     "sass-loader": "6.0.6",
-    "style-loader": "0.19.0"
+    "style-loader": "0.19.0",
+    "uuid": "^3.2.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "PORT=3001 react-scripts start",
+    "build": "react-scripts build && mv build ../backend",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

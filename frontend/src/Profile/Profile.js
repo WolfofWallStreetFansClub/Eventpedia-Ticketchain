@@ -5,7 +5,9 @@ import axios from 'axios';
 import ethers from 'ethers';
 import ContractUtils from '../Utils/ContractUtils';
 import Modal from '../Modal';
+import uuidv1 from 'uuid/v1';
 
+const backend_url = 'localhost:3000';
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -54,6 +56,7 @@ class Profile extends React.Component {
 
   createEvent(e) {
     e.preventDefault();
+    let eventID = uuidv1();
     let eventName = this.state.eventName;
     let eventDescription = this.state.eventDescription;
     let eventLocation = this.state.eventLocation;
@@ -64,7 +67,21 @@ class Profile extends React.Component {
     let event = {
       eventName, eventDescription, eventLocation, eventDate, eventFee, eventStartDate, eventEndDate
     }
-    this.state.contractUtils.createEvent(eventFee, "1").then(res => {
+    axios.post(`${backend_url}/event/api/activeEvent`, {
+      name: eventName,
+      location: eventLocation,
+      description: eventDescription,
+      fee: eventFee,
+      date: eventDate,
+      regStart: eventStartDate,
+      regEnd: eventEndDate,
+      hash: eventID
+    }).then(res => {
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+    });
+    this.state.contractUtils.createEvent(eventFee, eventID).then(res => {
       this.setState({
         showModal: true,
         success: true,
