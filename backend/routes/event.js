@@ -3,9 +3,12 @@ var router = express.Router();
 const eventController = require('../controllers').event;
 
 /* GET home page. */
-router.get('/api', (req, res) => res.status(200).send({
-    message: 'Welcome to the Event API!',
-}));
+router.get('/api', (req, res) => {
+    res.status(200).send({
+    message: 'Welcome to the Event API!',})
+});
+
+router.get('/api/event/:hash', eventController.getEvent);
 
 router.post('/api/activeEvent', eventController.createActive);
 

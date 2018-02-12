@@ -8,13 +8,14 @@
   "dependencies": {
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "morgan": "~1.9.0",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
     "pug": "2.0.0-beta11",
-    "sequelize": "^4.33.2",
+    "sequelize": "^4.33.3",
     "serve-favicon": "~2.4.5",
     "uuid": "^3.2.1"
   },

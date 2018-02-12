@@ -1,17 +1,17 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "1955",
+    "username": "eventsdb",
+    "password": 970920,
     "database": "eventsdb",
-    "host": "138.197.144.198",
+    "host": "localhost",
     "port": 5432,
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
-    "password": "1955",
+    "username": "eventsdb",
+    "password": 970920,
     "database": "eventsdb",
-    "host": "138.197.144.198",
+    "host": "localhost",
     "port": 5432,
     "dialect": "postgres"
   }

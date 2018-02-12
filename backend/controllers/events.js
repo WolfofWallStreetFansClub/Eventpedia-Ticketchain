@@ -7,7 +7,7 @@ module.exports = {
   create(req, res) {
     return Events
       .create({
-        title: req.body.name
+        title: req.body.title
       })
       .then(events => res.status(201).send(events))
       .catch(error => res.status(400).send(error));

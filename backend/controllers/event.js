@@ -1,7 +1,7 @@
 const Event = require('../models').EventItem;
 const uuidv1 = require('uuid/v1');
-const activeId = 4;
-const inactiveId = 1;
+const activeId = 1;
+const inactiveId = 2;
 module.exports = {
   createActive(req, res) {
     return Event
@@ -38,6 +38,16 @@ module.exports = {
    list(req, res) {
     return Event
     .all()
+    .then(event => res.status(200).send(event))
+    .catch(error => res.status(400).send(error));
+  },
+  getEvent(req, res) {
+    return Event
+    .findOne({
+      where: {
+        hash: req.params.hash
+      }
+    })
     .then(event => res.status(200).send(event))
     .catch(error => res.status(400).send(error));
   },

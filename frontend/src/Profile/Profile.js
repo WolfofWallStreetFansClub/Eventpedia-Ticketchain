@@ -7,7 +7,8 @@ import ContractUtils from '../Utils/ContractUtils';
 import Modal from '../Modal';
 import uuidv1 from 'uuid/v1';
 
-const backend_url = 'localhost:3000';
+const backend_url = 'http://localhost:3000';
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -67,6 +68,7 @@ class Profile extends React.Component {
     let event = {
       eventName, eventDescription, eventLocation, eventDate, eventFee, eventStartDate, eventEndDate
     }
+    console.log(eventDate);
     axios.post(`${backend_url}/event/api/activeEvent`, {
       name: eventName,
       location: eventLocation,
@@ -160,43 +162,43 @@ class Profile extends React.Component {
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Event Name: </label>
                 <div className="col-sm-8">
-                  <input type="text" className="form-control form-control-lg" name="eventName" id="colFormLabelLg" onChange={this.handleInputChange} />
+                  <input type="text" className="form-control form-control-lg" name="eventName" id="colFormLabelLg" onChange={this.handleInputChange} required/>
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Event Description: </label>
                 <div className="col-sm-8">
-                  <input type="text" className="form-control form-control-lg" name="eventDescription" id="colFormLabelLg" onChange={this.handleInputChange} />
+                  <input type="text" className="form-control form-control-lg" name="eventDescription" id="colFormLabelLg" onChange={this.handleInputChange} required/>
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Event Location: </label>
                 <div className="col-sm-8">
-                  <input type="text" className="form-control form-control-lg" name="eventLocation" id="colFormLabelLg" onChange={this.handleInputChange} />
+                  <input type="text" className="form-control form-control-lg" name="eventLocation" id="colFormLabelLg" onChange={this.handleInputChange} required/>
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Paticipation Fee: </label>
                 <div className="col-sm-8">
-                  <input type="number" className="form-control form-control-lg" name="eventFee" id="colFormLabelLg" onChange={this.handleInputChange} />
+                  <input type="number" step="0.01" className="form-control form-control-lg" name="eventFee" id="colFormLabelLg" onChange={this.handleInputChange} required/>
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Event Date: </label>
                 <div className="col-sm-8">
-                  <input type="datetime-local" className="form-control form-control-lg" name="eventDate" id="colFormLabelLg" onChange={this.handleInputChange} />
+                  <input type="datetime-local" className="form-control form-control-lg" name="eventDate" id="colFormLabelLg" onChange={this.handleInputChange} required/>
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Registration Start: </label>
                 <div className="col-sm-8">
-                  <input type="datetime-local" className="form-control form-control-lg"  name="eventStartDate" id="colFormLabelLg" onChange={this.handleInputChange} />
+                  <input type="datetime-local" className="form-control form-control-lg"  name="eventStartDate" id="colFormLabelLg" onChange={this.handleInputChange} required/>
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label col-form-label-lg">Registration Ends: </label>
                 <div className="col-sm-8">
-                  <input type="datetime-local" className="form-control form-control-lg" name="eventEndDate" id="colFormLabelLg" onChange={this.handleInputChange} />
+                  <input type="datetime-local" className="form-control form-control-lg" name="eventEndDate" id="colFormLabelLg" onChange={this.handleInputChange} required/>
                 </div>
               </div>
               <button type="submit" className="btn btn-primary mb-2">Create</button>
@@ -205,20 +207,24 @@ class Profile extends React.Component {
             <form onSubmit={this.topUp}>
               <h2>Settings</h2>
               <div className="form-group row" onSubmit={this.topUp}>
-                <label className="col-sm-2 col-form-label col-form-label-lg">Top up: </label>
+                <label className="col-sm-3 col-form-label col-form-label-lg">Top up: </label>
                 <div className="col-sm-4">
                   <input type="number" className="form-control form-control-lg" id="colFormLabelLg" name="amount" onChange={this.handleInputChange} required/>
                 </div>
+                <div className="col-sm-5">
                 <button type="submit" className="btn btn-primary mb-2">Send</button>
+                </div>
               </div>
             </form>
             <form onSubmit={this.changeName}>
               <div className="form-group row">
-                <label className="col-sm-2 col-form-label col-form-label-lg">Change Name: </label>
+                <label className="col-sm-3 col-form-label col-form-label-lg">Change Name: </label>
                 <div className="col-sm-4">
                   <input type="text" className="form-control form-control-lg" id="colFormLabelLg" name="newname" onChange={this.handleInputChange} required/>
                 </div>
+                <div className="col-sm-5">
                 <button type="submit" className="btn btn-primary mb-2">Change</button>
+                </div>
               </div>
             </form>
           </div>
