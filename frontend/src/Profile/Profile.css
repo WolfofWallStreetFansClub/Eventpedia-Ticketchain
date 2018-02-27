@@ -1,0 +1,16 @@
+.avatar {
+  height: 150px;
+  width: 150px;
+}
+
+.account-info {
+  display: block;
+}
+
+.info {
+  display: inline;
+}
+
+.account-info {
+  display: block;
+}
