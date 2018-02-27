@@ -12,7 +12,7 @@ class ContractUtils {
   }
 
   createEvent(eventPrice, eventID) {
-    return this.wallet.activeContract.createEvent(eventPrice, eventID);
+    return this.wallet.activeContract.createEvent(ethers.utils.parseEther(eventPrice), eventID);
   }
 
   retrieveUserInfo() {
@@ -24,7 +24,7 @@ class ContractUtils {
   }
 
   topup(amount) {
-    return this.wallet.activeContract.topUp({value: ethers.utils.parseEther(amount)});
+    return this.wallet.activeContract.topUp({value: ethers.utils.parseEther(amount.toString())});
   }
 
   changeName(name) {

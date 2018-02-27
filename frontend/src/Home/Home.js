@@ -14,9 +14,9 @@ class Home extends React.Component {
       <header className="masthead">
         <div className="container">
           <div className="intro-text">
-            <span className="name">A Decentralized Events Platform</span>
+            <span className="name">A Decentralized Events Sharing Platform</span>
             <hr className="star-light" />
-            <span className="skills">Proudly Powered By Ethereum Blockchain and Infura IPFS Service</span><br/>
+            <span className="skills">Proudly Powered By Ethereum Blockchain and Infura Services</span><br/>
             <span className="good">Free - Transparent - Reliable</span><br/>
             <Link to="/discover" className="btn btn-lg btn-outline ">
               <i className="fa fa-play"></i>

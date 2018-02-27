@@ -1,6 +1,8 @@
 import React from 'react';
 import './Modal.css'
 
+var ETHERSCAN_URL = "https://ropsten.etherscan.io/tx/";
+
 class Modal extends React.Component {
   constructor(props) {
     super(props);
@@ -21,13 +23,15 @@ class Modal extends React.Component {
             <span className="close" onClick={this.refreshPage}>&times;</span>
           </div>
           <div className="modal-body">
-            {
-              this.props.success ? (
-                "You transaction has been confirm. Please wait for the block to be mine. Here is the transaction hash " + this.props.hash
+            {this.props.success ? (
+                <div>
+                  You transaction has been confirm. Please wait for the block to be mine.
+                  <br />
+                  <a target="_blank" href={ETHERSCAN_URL+this.props.hash}>Click here to view the transaction on Etherscan</a>
+                </div>
               ) : (
                 "You transaction failed with error " + this.props.error + ". Please make sure you have enough balance"
-              )
-            }
+              )}
           </div>
           <div className="modal-footer">
             {

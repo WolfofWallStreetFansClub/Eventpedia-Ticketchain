@@ -209,7 +209,7 @@ class Profile extends React.Component {
               <div className="form-group row" onSubmit={this.topUp}>
                 <label className="col-sm-3 col-form-label col-form-label-lg">Top up: </label>
                 <div className="col-sm-4">
-                  <input type="number" className="form-control form-control-lg" id="colFormLabelLg" name="amount" onChange={this.handleInputChange} required/>
+                  <input type="number" step="0.01" className="form-control form-control-lg" id="colFormLabelLg" name="amount" onChange={this.handleInputChange} required/>
                 </div>
                 <div className="col-sm-5">
                 <button type="submit" className="btn btn-primary mb-2">Send</button>
